@@ -5,7 +5,7 @@ export const createNewShortenUrl = async (req, res, next) => {
     try {
         let { destinationUrl } = req.body;
         let urlExists = await Url.findOne({ destinationUrl });
-        console.log(urlExists)
+        
         if (urlExists) {
             return res.json({
                 url: urlExists
@@ -16,7 +16,6 @@ export const createNewShortenUrl = async (req, res, next) => {
             shortenUrl: shortenUrl,
             destinationUrl
         })
-        console.log(newUrl)
 
         await newUrl.save();
         return res.json({
@@ -33,8 +32,8 @@ export const createNewShortenUrl = async (req, res, next) => {
 export const getDestinationUrl = async (req, res, next) => {
     try {
         let { shortenUrl } = req.params;
+        console.log(shortenUrl)
         let url = await Url.findOne({ shortenUrl });
-        console.log(url)
         if (!url) {
             return res.json({
                 message: "Url not found OR Invalid Url"
